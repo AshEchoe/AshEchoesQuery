@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ashechoes.454078056.workers.dev"></script>
+    <title>查询六星角色和烙痕数据</title>
+</head>
+<body>
+
+<h2>查询六星角色和烙痕数据</h2>
+<input type="text" id="cookie" placeholder="请输入您Cookie中的token值"><br>
+<button onclick="fetchData()">开始查询</button>
+<p id="result"></p>
+
+<script>
+    const response = await fetch('https://ashechoes.454078056.workers.dev');
+const data = await response.json();
+// 使用获取的数据创建 HTML 元素，比如 table、list 等
+console.log(data);
+    cookieinput = document.getElementById("cookie");
+    cookieinput.addEventListener("input", function() {
+        document.cookie = `token=${cookie}`;
+        });
+</script>
+
+</body>
+</html>
