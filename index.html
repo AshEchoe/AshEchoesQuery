@@ -9,30 +9,39 @@
 <body>
 
 <h2>查询六星角色和烙痕数据</h2>
-<input type="text" id="cookie" placeholder="请输入您Cookie中的token值"><br>
+<input type="text" id="cookieInput" style="width: 300px;" placeholder="请输入您Cookie中的token值"><br>
 <button onclick="fetchData()">开始查询</button>
 <p id="result"></p>
 
 <script>
-     fetch('https://ashechoes.454078056.workers.dev')
-        .then(response => {
-            // 检查请求是否成功
-            if (!response.ok) {
-                throw new Error('网络响应出错');
-            }
-            return response.text(); // 获取响应的文本
-        })
-        .then(data => {
-            console.log(data); // 处理获取的数据
-            document.getElementById("result").innerText = data; // 显示返回的数据
-        })
-        .catch(error => {
-            console.error('获取数据时出错:', error);
-        });
-    cookieinput = document.getElementById("cookie");
-    cookieinput.addEventListener("input", function() {
-        document.cookie = `token=${cookie}`;
-        });
+    cookieInput = document.getElementById("cookieInput");
+     if (!document.cookie) {
+        cookieInput.value = document.cookie;
+     }
+     cookieInput.addEventListener("input", function() {
+        //document.cookie = "token=" + cookieInput.value;
+     });
+
+     1704988800
+     function fetchData() {
+        if (!cookieInput.value) {
+            alert("请输入您的Cookie中的token值");
+            return;
+        }
+        document.cookie = "token=" + cookieInput.value;
+        let token = document.cookie.split("=")[1];
+        let url = Math.random() >= 0.5 ? "https://ashechoes.454078056.workers.dev/" : "https://ashechoes.ashechoes.workers.dev/";
+        let body = "?type=pool"
+        fetch(url+body)
+           .then(response => response.text())
+           .then(data => {
+                document.getElementById("result").innerHTML = JSON.stringify(data);
+                console.log(data);
+            })
+           .catch(error => {
+                console.error(error);
+            });
+     }
 </script>
 
 </body>
